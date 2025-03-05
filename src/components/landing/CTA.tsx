@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const keyBenefits = [
@@ -13,23 +13,33 @@ const keyBenefits = [
 
 const CTA = () => {
   return (
-    <section className="section-padding bg-gradient-to-br from-blue-500 to-teal-400 text-white">
-      <div className="container-wide relative">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+    <section className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent"></div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl"></div>
+      
+      <div className="container-wide relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="gradient-border p-10 md:p-16 max-w-4xl mx-auto"
+        >
+          <div className="relative z-10 text-center">
+            <div className="flex justify-center mb-6">
+              <div className="w-16 h-16 bg-purple-600 flex items-center justify-center rounded-2xl shadow-[0_0_30px_rgba(162,89,255,0.7)]">
+                <Zap className="h-8 w-8 text-white" />
+              </div>
+            </div>
+            
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight text-white neon-glow">
               Prêt à transformer votre présence sur TikTok ?
             </h2>
-            <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto">
+            
+            <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
               Rejoignez des milliers de créateurs qui utilisent TikViral pour créer du contenu captivant et monétiser leur audience.
             </p>
             
@@ -37,25 +47,61 @@ const CTA = () => {
               {keyBenefits.map((benefit, index) => (
                 <div 
                   key={index}
-                  className="flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-2"
+                  className="flex items-center backdrop-blur-sm bg-white/5 border border-white/10 rounded-full px-4 py-2"
                 >
-                  <CheckCircle className="h-5 w-5 mr-2 text-white" />
-                  <span className="text-sm font-medium">{benefit}</span>
+                  <CheckCircle className="h-5 w-5 mr-2 text-green-400" />
+                  <span className="text-sm font-medium text-gray-200">{benefit}</span>
                 </div>
               ))}
             </div>
             
             <Button 
               size="lg" 
-              className="bg-white text-blue-600 hover:bg-white/90 group text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white group text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300 shadow-purple-600/30 rounded-xl"
             >
               <span className="mr-2">Commencer maintenant</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             
-            <p className="mt-6 text-white/80 text-sm">
+            <p className="mt-6 text-gray-400 text-sm">
               Garantie satisfait ou remboursé de 30 jours. Sans engagement.
             </p>
+          </div>
+        </motion.div>
+        
+        {/* Success metrics */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="dark-glass-card p-6 rounded-xl text-center"
+          >
+            <h3 className="text-4xl font-bold text-white mb-2">10K+</h3>
+            <p className="text-gray-400">Créateurs satisfaits</p>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="dark-glass-card p-6 rounded-xl text-center"
+          >
+            <h3 className="text-4xl font-bold text-white mb-2">3M+</h3>
+            <p className="text-gray-400">Vues générées</p>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="dark-glass-card p-6 rounded-xl text-center"
+          >
+            <h3 className="text-4xl font-bold text-white mb-2">300%</h3>
+            <p className="text-gray-400">Augmentation d'engagement</p>
           </motion.div>
         </div>
       </div>

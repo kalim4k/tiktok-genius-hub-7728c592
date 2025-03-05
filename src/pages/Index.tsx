@@ -28,12 +28,23 @@ const Index = () => {
       }
     };
 
+    // Force dark mode for landing page
+    document.documentElement.classList.add('dark');
+
     document.addEventListener('click', handleAnchorClick);
-    return () => document.removeEventListener('click', handleAnchorClick);
+    return () => {
+      document.removeEventListener('click', handleAnchorClick);
+      // Remove dark mode when unmounting
+      document.documentElement.classList.remove('dark');
+    };
   }, []);
 
   return (
-    <div className="relative overflow-hidden min-h-screen">
+    <div className="relative overflow-hidden min-h-screen dark bg-[#0f0e17]">
+      <div className="fixed top-0 left-0 w-full h-full z-[-1] bg-[#0f0e17]">
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-purple-500/10 rounded-full blur-[120px] opacity-50"></div>
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-blue-500/10 rounded-full blur-[120px] opacity-50"></div>
+      </div>
       <Navbar />
       <main>
         <Hero />
