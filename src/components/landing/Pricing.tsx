@@ -1,13 +1,15 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+
 const features = ["Générateur d'idées de vidéos", "Générateur de scripts", "Analyse de performances", "Générateur de hashtags", "Calcul de revenus", "Analyse des tendances", "Accès à CapCut Pro", "Accès à Canva Pro", "Ebooks sur la monétisation", "1000 clips de hook TikTok", "Templates CapCut viraux", "Support prioritaire"];
+
 const Pricing = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  
   const handlePurchase = () => {
     toast({
       title: "Licence non disponible",
@@ -16,6 +18,7 @@ const Pricing = () => {
       duration: 5000
     });
   };
+  
   return <section id="pricing" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
       <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-purple-900/20 to-transparent"></div>
@@ -110,12 +113,11 @@ const Pricing = () => {
                   </div>
                 </div>
               </div>
-              
-              
             </div>
           </div>
         </motion.div>
       </div>
     </section>;
 };
+
 export default Pricing;

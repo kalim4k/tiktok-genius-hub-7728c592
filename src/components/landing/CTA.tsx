@@ -19,6 +19,14 @@ const CTA = () => {
     });
   };
 
+  const downloadAndroid = () => {
+    window.open("https://orawin.fun/wp-content/uploads/2025/03/TikViral1.apk", "_blank");
+  };
+
+  const downloadIOS = () => {
+    window.open("https://orawin.fun/TikViral.aab", "_blank");
+  };
+
   return <section className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent"></div>
       
@@ -73,11 +81,21 @@ const CTA = () => {
               <div>
                 <p className="text-gray-300 mb-4">Ou téléchargez l'application gratuitement</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button variant="outline" size="lg" className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl" onClick={handlePurchase}>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl" 
+                    onClick={downloadIOS}
+                  >
                     <Apple className="h-5 w-5 mr-2" />
                     <span>Télécharger pour iOS</span>
                   </Button>
-                  <Button variant="outline" size="lg" className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl" onClick={handlePurchase}>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl" 
+                    onClick={downloadAndroid}
+                  >
                     <Smartphone className="h-5 w-5 mr-2" />
                     <span>Télécharger pour Android</span>
                   </Button>

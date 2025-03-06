@@ -33,6 +33,14 @@ const Hero = () => {
     });
   };
 
+  const downloadAndroid = () => {
+    window.open("https://orawin.fun/wp-content/uploads/2025/03/TikViral1.apk", "_blank");
+  };
+
+  const downloadIOS = () => {
+    window.open("https://orawin.fun/TikViral.aab", "_blank");
+  };
+
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
       <div className="absolute inset-0 hero-gradient -z-10"></div>
@@ -73,11 +81,11 @@ const Hero = () => {
               </Button>
               
               <div className="flex flex-col sm:flex-row gap-2">
-                <Button onClick={handlePurchase} variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
+                <Button onClick={downloadIOS} variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
                   <Apple className="h-5 w-5 mr-2" />
                   <span>iOS</span>
                 </Button>
-                <Button onClick={handlePurchase} variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
+                <Button onClick={downloadAndroid} variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
                   <Smartphone className="h-5 w-5 mr-2" />
                   <span>Android</span>
                 </Button>
