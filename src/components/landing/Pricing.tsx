@@ -34,7 +34,7 @@ const Pricing = () => {
             Investissez dans votre succès sur TikTok
           </h2>
           <p className="text-gray-300 text-lg">
-            Un seul forfait qui comprend tout ce dont vous avez besoin pour réussir sur TikTok.
+            Un abonnement simple qui comprend tout ce dont vous avez besoin pour réussir sur TikTok.
           </p>
         </div>
 
@@ -71,20 +71,20 @@ const Pricing = () => {
                   </p>
                   
                   <div className="mb-6">
-                    <span className="text-5xl font-bold text-white">199€</span>
-                    <span className="text-gray-500 line-through ml-2">399€</span>
-                    <p className="text-sm text-gray-400 mt-1">Paiement unique, accès à vie</p>
+                    <span className="text-5xl font-bold text-white">9,99€</span>
+                    <span className="text-gray-500 line-through ml-2">19,99€</span>
+                    <p className="text-sm text-gray-400 mt-1">par mois, annulable à tout moment</p>
                   </div>
                   
                   <Button 
                     className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white group text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300 shadow-purple-600/30 rounded-xl"
                   >
-                    <span className="mr-2">Obtenir l'accès maintenant</span>
+                    <span className="mr-2">Commencer maintenant</span>
                     <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                   
                   <p className="text-sm text-gray-400 mt-3 text-center">
-                    Garantie satisfait ou remboursé de 30 jours
+                    Garantie satisfait ou remboursé de 14 jours
                   </p>
                 </div>
                 
