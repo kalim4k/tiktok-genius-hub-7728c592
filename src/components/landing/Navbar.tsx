@@ -4,10 +4,12 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +23,26 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: 'smooth',
+      });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  const handlePurchase = () => {
+    toast({
+      title: "Licence non disponible",
+      description: "Désolé, les licences et l'application ne sont pas disponibles dans votre pays pour le moment.",
+      variant: "destructive",
+      duration: 5000,
+    });
+  };
 
   return (
     <header
@@ -39,41 +61,42 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center space-x-8">
-          <a
-            href="#features"
+          <button
+            onClick={() => scrollToSection("features")}
             className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors"
           >
             Fonctionnalités
-          </a>
-          <a
-            href="#how-it-works"
+          </button>
+          <button
+            onClick={() => scrollToSection("how-it-works")}
             className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors"
           >
             Comment ça marche
-          </a>
-          <a
-            href="#testimonials"
+          </button>
+          <button
+            onClick={() => scrollToSection("testimonials")}
             className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors"
           >
             Témoignages
-          </a>
-          <a
-            href="#pricing"
+          </button>
+          <button
+            onClick={() => scrollToSection("pricing")}
             className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors"
           >
             Tarifs
-          </a>
-          <a
-            href="#faq"
+          </button>
+          <button
+            onClick={() => scrollToSection("faq")}
             className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors"
           >
             FAQ
-          </a>
+          </button>
         </nav>
 
         {/* CTA Button */}
         <div className="hidden md:block">
           <Button
+            onClick={handlePurchase}
             className="bg-gradient-to-r from-purple-600 to-blue-500 hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] text-white transition-all"
           >
             Obtenir TikViral
@@ -99,44 +122,39 @@ const Navbar = () => {
             className="md:hidden bg-black/60 backdrop-blur-md border-t border-white/10"
           >
             <div className="container py-4 flex flex-col space-y-4">
-              <a
-                href="#features"
-                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <button
+                onClick={() => scrollToSection("features")}
+                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 text-left"
               >
                 Fonctionnalités
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection("how-it-works")}
+                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 text-left"
               >
                 Comment ça marche
-              </a>
-              <a
-                href="#testimonials"
-                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection("testimonials")}
+                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 text-left"
               >
                 Témoignages
-              </a>
-              <a
-                href="#pricing"
-                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection("pricing")}
+                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 text-left"
               >
                 Tarifs
-              </a>
-              <a
-                href="#faq"
-                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection("faq")}
+                className="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 text-left"
               >
                 FAQ
-              </a>
+              </button>
               <Button
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={handlePurchase}
               >
                 Obtenir TikViral
               </Button>

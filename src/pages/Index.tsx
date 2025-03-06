@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Navbar from '@/components/landing/Navbar';
 import Hero from '@/components/landing/Hero';
@@ -12,26 +13,9 @@ import DemoSection from '@/components/landing/DemoSection';
 
 const Index = () => {
   useEffect(() => {
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const id = target.getAttribute('href')?.substring(1);
-        const element = document.getElementById(id as string);
-        if (element) {
-          window.scrollTo({
-            top: element.offsetTop - 80,
-            behavior: 'smooth',
-          });
-        }
-      }
-    };
-
     document.documentElement.classList.add('dark');
-
-    document.addEventListener('click', handleAnchorClick);
+    
     return () => {
-      document.removeEventListener('click', handleAnchorClick);
       document.documentElement.classList.remove('dark');
     };
   }, []);
