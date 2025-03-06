@@ -1,56 +1,122 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { Check } from "lucide-react";
 
 const testimonials = [
   {
     name: "Sophie Martin",
-    role: "Créatrice de contenu lifestyle",
-    testimonial:
-      "TikViral a complètement transformé ma façon de créer du contenu. J'ai vu mes vues augmenter de 300% en seulement un mois grâce aux analyses et conseils personnalisés !",
+    handle: "@sophielifestyle",
+    followers: "307K followers",
+    age: "22 ans",
+    testimonial: "Je n'avais jamais eu de stratégie qui fonctionnait constamment... jusqu'à ce que j'utilise TikViral.",
+    highlightedText: "jusqu'à ce que j'utilise TikViral.",
     avatar: "https://randomuser.me/api/portraits/women/32.jpg",
-    stars: 5,
+    verified: true,
   },
   {
     name: "Marc Dubois",
-    role: "Comédien TikTok",
-    testimonial:
-      "La fonctionnalité de génération de scripts est incroyable. Je n'ai plus jamais à me soucier du blocage créatif. Mes vidéos sont maintenant beaucoup plus engageantes.",
+    handle: "@marcocomedy",
+    followers: "250K+ followers",
+    age: "26 ans",
+    testimonial: "Après avoir rejoint, j'ai eu 5 vidéos dépassant le million de vues... grâce à l'analyse et aux conseils de TikViral.",
+    highlightedText: "grâce à l'analyse et aux conseils de TikViral.",
     avatar: "https://randomuser.me/api/portraits/men/54.jpg",
-    stars: 5,
+    verified: true,
   },
   {
     name: "Aminata Diallo",
-    role: "Influenceuse mode",
-    testimonial:
-      "L'analyse des tendances m'a permis de rester toujours à la pointe. Je peux désormais prévoir quels contenus vont fonctionner avant même de les créer !",
+    handle: "@aminatafashion",
+    followers: "136K followers",
+    age: "19 ans",
+    testimonial: "Nous avons réussi à faire passer mon TikTok de 0... à plus de 136K followers et atteindre plus de 1M+ de vues en 30 jours!",
+    highlightedText: "1M+ de vues en 30 jours!",
     avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    stars: 5,
+    verified: false,
   },
   {
     name: "Thomas Leroy",
-    role: "Entrepreneur digital",
-    testimonial:
-      "Le calculateur de revenus est d'une précision étonnante. J'ai pu planifier ma stratégie de monétisation et atteindre mes objectifs financiers beaucoup plus rapidement.",
+    handle: "@thomascreator",
+    followers: "670K abonnés",
+    age: "24 ans",
+    testimonial: "Juste quelques semaines après l'inscription, j'ai LITTÉRALEMENT explosé les vues... Je suis en bonne voie pour atteindre mon meilleur mois!",
+    highlightedText: "j'ai LITTÉRALEMENT explosé les vues...",
     avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-    stars: 4,
+    verified: true,
+  },
+  {
+    name: "Julie Moreau",
+    handle: "@juliemoment",
+    followers: "150K abonnés",
+    age: "21 ans",
+    testimonial: "La toute première vidéo que j'ai postée a obtenu 483K vues! Tout ça grâce aux conseils de contenu de TikViral.",
+    highlightedText: "483K vues!",
+    avatar: "https://randomuser.me/api/portraits/women/67.jpg",
+    verified: true,
+  },
+  {
+    name: "Karim Benhaddou",
+    handle: "@karimcooks",
+    followers: "129K followers",
+    age: "28 ans",
+    testimonial: "J'ai quitté mon emploi parce que je gagnais tellement d'argent... Apprenez tout ce que TikViral enseigne!",
+    highlightedText: "je gagnais tellement d'argent...",
+    avatar: "https://randomuser.me/api/portraits/men/36.jpg",
+    verified: false,
   },
 ];
 
+const TestimonialCard = ({ testimonial }) => {
+  const { name, handle, followers, age, testimonial: text, highlightedText, avatar, verified } = testimonial;
+  
+  // Split the testimonial text to highlight the specific part
+  const parts = text.split(highlightedText);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      className="dark-glass-card rounded-xl p-6 relative overflow-hidden h-full flex flex-col"
+    >
+      <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-purple-600/30 to-pink-400/30 rounded-full blur-xl"></div>
+      
+      <div className="flex items-center mb-4 z-10">
+        <div className="relative mr-3">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 blur-[1px]"></div>
+          <img 
+            src={avatar} 
+            alt={name} 
+            className="w-12 h-12 rounded-full object-cover border-2 border-white/10 relative z-10"
+          />
+        </div>
+        
+        <div className="flex-1">
+          <div className="flex items-center">
+            <h3 className="text-lg font-semibold text-white mr-1">{name}</h3>
+            {verified && (
+              <span className="text-xs bg-gradient-to-r from-blue-400 to-blue-600 rounded-full p-0.5">
+                <Check size={12} className="text-white" />
+              </span>
+            )}
+          </div>
+          <p className="text-xs text-gray-400">{followers} • {age}</p>
+        </div>
+      </div>
+      
+      <div className="mb-3 flex-1">
+        <p className="text-gray-300 text-sm">
+          {parts[0]}
+          <span className="font-bold text-white">{highlightedText}</span>
+          {parts[1] || ""}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
 const Testimonials = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const nextTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
-    );
-  };
-
   return (
     <section id="testimonials" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
@@ -65,99 +131,21 @@ const Testimonials = () => {
           <span className="inline-block px-3 py-1 text-xs font-semibold text-purple-200 bg-purple-900/50 rounded-full border border-purple-700/50 mb-4">
             Témoignages
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white neon-glow">
-            Ce que disent nos utilisateurs
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white neon-glow">
+            Des Résultats Qui Durent<span className="text-pink-500">.</span>
           </h2>
           <p className="text-gray-300 text-lg">
-            Découvrez comment TikViral aide les créateurs à transformer leur présence sur TikTok.
+            Succès de nos utilisateurs — découvrez comment ils transforment leurs efforts en réussite, 
+            <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 py-1 rounded ml-2 inline-block">
+              vous le pouvez aussi!
+            </span>
           </p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
-          <div className="overflow-hidden">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              key={currentIndex}
-              className="gradient-border p-1 rounded-2xl"
-            >
-              <div className="dark-glass-card p-8 md:p-10 rounded-2xl">
-                <div className="absolute -top-5 -left-5 text-purple-400 opacity-30">
-                  <Quote size={80} />
-                </div>
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10">
-                  <div className="flex-shrink-0">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full blur-sm"></div>
-                      <img
-                        src={testimonials[currentIndex].avatar}
-                        alt={testimonials[currentIndex].name}
-                        className="relative w-20 h-20 rounded-full object-cover border-2 border-white/20"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex-grow text-center md:text-left">
-                    <div className="flex items-center justify-center md:justify-start mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-5 h-5 ${
-                            i < testimonials[currentIndex].stars
-                              ? "text-yellow-500 fill-yellow-500"
-                              : "text-gray-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <blockquote className="text-xl italic text-gray-200 mb-4">
-                      "{testimonials[currentIndex].testimonial}"
-                    </blockquote>
-                    <div>
-                      <h4 className="font-semibold text-lg text-white">
-                        {testimonials[currentIndex].name}
-                      </h4>
-                      <p className="text-purple-400">
-                        {testimonials[currentIndex].role}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="flex justify-center space-x-4 mt-8">
-            <button
-              onClick={prevTestimonial}
-              className="w-10 h-10 rounded-full bg-purple-900/50 border border-purple-500/30 flex items-center justify-center text-gray-300 hover:bg-purple-800/50 transition-colors"
-              aria-label="Témoignage précédent"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <div className="flex space-x-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    currentIndex === index
-                      ? "bg-purple-500"
-                      : "bg-gray-700 hover:bg-gray-600"
-                  }`}
-                  aria-label={`Témoignage ${index + 1}`}
-                ></button>
-              ))}
-            </div>
-            <button
-              onClick={nextTestimonial}
-              className="w-10 h-10 rounded-full bg-purple-900/50 border border-purple-500/30 flex items-center justify-center text-gray-300 hover:bg-purple-800/50 transition-colors"
-              aria-label="Témoignage suivant"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard key={index} testimonial={testimonial} />
+          ))}
         </div>
       </div>
     </section>
