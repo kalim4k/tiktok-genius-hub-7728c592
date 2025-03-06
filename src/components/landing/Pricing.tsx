@@ -1,11 +1,25 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
-const features = ["Générateur d'idées de vidéos", "Générateur de scripts", "Analyse de performances", "Générateur de hashtags", "Calcul de revenus", "Analyse des tendances", "Accès à CapCut Pro", "Accès à Canva Pro", "Ebooks sur la monétisation", "1000 clips de hook TikTok", "Templates CapCut viraux", "Support prioritaire"];
+const features = [
+  "Générateur d'idées de vidéos", 
+  "Générateur de scripts", 
+  "Analyse de performances", 
+  "Générateur de hashtags", 
+  "Calcul de revenus", 
+  "Analyse des tendances", 
+  "Accès à CapCut Pro", 
+  "Accès à Canva Pro", 
+  "Ebooks sur la monétisation", 
+  "Ebook sur la création d'un compte PayPal vérifié en Afrique",
+  "Ebook sur la monétisation de compte TikTok en Afrique",
+  "1000 clips de hook TikTok", 
+  "Templates CapCut viraux", 
+  "Support prioritaire"
+];
 
 const Pricing = () => {
   const { toast } = useToast();
