@@ -11,22 +11,28 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const fallbackUsernames = [
   "Aicha", "Mouna", "Kodjo", "Mamadou", "Mouhamed", "Moussa", 
-  "Malik", "Fatou", "Bouba", "Fatima", "Ibrahim", "Mariam"
+  "Malik", "Fatou", "Bouba", "Fatima", "Ibrahim", "Mariam",
+  "Aminata", "Seydou", "Ousmane", "Kadiatou", "Aboubacar", "Rokia",
+  "Adama", "Oumou", "Souleymane", "Aïssatou", "Djibril", "Hawa",
+  "Amadou", "Fanta", "Bakary", "Bintou", "Ibrahima", "Fatoumata"
 ];
 
 const fallbackMessages = [
-  "Merci, top le site",
-  "Je suis à 57000 F sur mon compte🤣",
-  "je vais devenir riche les gars",
-  "ça marche vraiment bien",
-  "Ce site est trop cool",
-  "svp ne partagez pas le site sinon ils vont fermer",
-  "Je suis maintenant à 49000F pour aujourd'hui",
-  "j'utilise 2 phones pour gagner plus 🤣",
-  "Fini la galère🤣🤣",
-  "Je vais tout bousillé ce soir chez les kpoclés 😄",
-  "C'est super facile à utiliser",
-  "300F en à peine 5 minutes 🔥",
+  "Cette app est vraiment la meilleure pour devenir populaire sur TikTok 🔥",
+  "Je viens d'atteindre 10k abonnés grâce aux conseils de l'application",
+  "Les formations sont trop bien faites 👌",
+  "Merci pour les templates, ils font gagner tellement de temps",
+  "Enfin une app qui comprend comment marche l'algo TikTok",
+  "J'ai eu ma première vidéo en tendance hier 🙌",
+  "Le support répond super vite, merci!",
+  "Les analyses de performance m'ont vraiment aidé",
+  "Je recommande la licence premium, ça vaut le coup",
+  "Les outils d'édition sont faciles à utiliser même pour un débutant",
+  "Je suis passée de 0 à 5000 vues en 1 semaine",
+  "Le programme de monétisation n'a plus de secret pour moi maintenant",
+  "Les bonus exclusifs sont vraiment utiles 🎁",
+  "L'outil de recherche de tendances est incroyable",
+  "Merci pour les idées de contenu quand je suis en panne d'inspiration"
 ];
 
 interface Message {
@@ -50,25 +56,36 @@ const LiveChat = () => {
     try {
       setIsGenerating(true);
       const prompt = `
-        Generate a single short message that an African user might post in a live chat about making money from a mobile app.
-        The message should:
-        1. Be in French
-        2. Be extremely positive about the money they've made
-        3. Include African expressions or slang
-        4. Mention a specific amount of money between 100F and 100,000F
-        5. Include 1-2 appropriate emojis
-        6. Be no longer than 100 characters
-        7. Also generate a typical African first name from West Africa
+        Génère un message unique qu'un utilisateur africain pourrait poster dans un chat en direct à propos d'une application qui aide les créateurs de contenu à réussir sur TikTok.
+        Le message doit:
+        1. Être en français
+        2. Être très positif sur l'une des fonctionnalités suivantes (choisis-en une aléatoirement):
+           - Conseils pour augmenter les abonnés
+           - Outils d'analyse de performance
+           - Templates et filtres exclusifs
+           - Formations sur l'algorithme TikTok
+           - Programme de monétisation
+           - Bonus pour les détenteurs de licence
+           - Outils de recherche de tendances
+           - Support client réactif
+           - Idées de contenu viral
+           - Statistiques et analyses
+        3. Inclure des expressions ou argot africain si possible
+        4. NE PAS mentionner de montants d'argent spécifiques
+        5. Inclure 1-2 émojis appropriés
+        6. Ne pas dépasser 100 caractères
+        7. Être différent des messages précédents
+        8. Aussi génère un prénom africain de l'Afrique de l'Ouest (différent de: ${fallbackUsernames.slice(0, 10).join(", ")})
         
-        Format your response exactly like this without any extra words or explanation:
-        NAME: [first name only]
-        MESSAGE: [the short message]
+        Format ta réponse exactement comme ceci sans mots ou explications supplémentaires:
+        NOM: [prénom uniquement]
+        MESSAGE: [le message court]
       `;
 
       const result = await model.generateContent(prompt);
       const text = result.response.text();
       
-      const nameMatch = text.match(/NAME:\s*([^\n]+)/);
+      const nameMatch = text.match(/NOM:\s*([^\n]+)/);
       const messageMatch = text.match(/MESSAGE:\s*([^\n]+)/);
       
       if (nameMatch && messageMatch) {
@@ -148,24 +165,46 @@ const LiveChat = () => {
 
   useEffect(() => {
     const initialMsgs: Message[] = [];
+    const usedUsernames = new Set<string>();
+    const usedMessages = new Set<string>();
+    
     for (let i = 0; i < 4; i++) {
+      let username, message;
+      
+      do {
+        username = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
+      } while (usedUsernames.has(username));
+      usedUsernames.add(username);
+      
+      do {
+        message = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+      } while (usedMessages.has(message));
+      usedMessages.add(message);
+      
       initialMsgs.push({
         id: Date.now() - i * 1000,
-        username: fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)],
-        message: fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)],
+        username,
+        message,
         isUser: false
       });
     }
     setMessages(initialMsgs);
 
     generateGeminiMessage();
-    generationIntervalRef.current = window.setInterval(() => {
-      generateGeminiMessage();
-    }, 8000);
+    
+    const scheduleNextGeneration = () => {
+      const randomInterval = 7000 + Math.floor(Math.random() * 8000);
+      generationIntervalRef.current = window.setTimeout(() => {
+        generateGeminiMessage();
+        scheduleNextGeneration();
+      }, randomInterval);
+    };
+    
+    scheduleNextGeneration();
 
     return () => {
       if (generationIntervalRef.current) {
-        clearInterval(generationIntervalRef.current);
+        clearTimeout(generationIntervalRef.current);
       }
     };
   }, [generateGeminiMessage]);
