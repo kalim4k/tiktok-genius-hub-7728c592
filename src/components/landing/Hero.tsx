@@ -73,11 +73,11 @@ const Hero = () => {
               </Button>
               
               <div className="flex flex-col sm:flex-row gap-2">
-                <Button variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
+                <Button onClick={handlePurchase} variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
                   <Apple className="h-5 w-5 mr-2" />
                   <span>iOS</span>
                 </Button>
-                <Button variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
+                <Button onClick={handlePurchase} variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
                   <Smartphone className="h-5 w-5 mr-2" />
                   <span>Android</span>
                 </Button>

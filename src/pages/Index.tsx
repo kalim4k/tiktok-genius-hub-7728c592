@@ -10,6 +10,7 @@ import FAQ from '@/components/landing/FAQ';
 import CTA from '@/components/landing/CTA';
 import Footer from '@/components/landing/Footer';
 import DemoSection from '@/components/landing/DemoSection';
+import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   useEffect(() => {
@@ -42,6 +43,7 @@ const Index = () => {
         <CTA />
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 };

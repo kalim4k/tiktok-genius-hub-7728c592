@@ -1,8 +1,8 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const features = [
   "Générateur d'idées de vidéos",
@@ -20,6 +20,17 @@ const features = [
 ];
 
 const Pricing = () => {
+  const { toast } = useToast();
+
+  const handlePurchase = () => {
+    toast({
+      title: "Licence non disponible",
+      description: "Désolé, les licences et l'application ne sont pas disponibles dans votre pays pour le moment.",
+      variant: "destructive",
+      duration: 5000,
+    });
+  };
+
   return (
     <section id="pricing" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
@@ -77,6 +88,7 @@ const Pricing = () => {
                   </div>
                   
                   <Button 
+                    onClick={handlePurchase}
                     className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white group text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300 shadow-purple-600/30 rounded-xl"
                   >
                     <span className="mr-2">Commencer maintenant</span>
@@ -118,7 +130,6 @@ const Pricing = () => {
                 </div>
               </div>
               
-              {/* User testimonial callout */}
               <div className="mt-8 dark-glass-card p-4 rounded-lg border border-purple-500/30">
                 <div className="flex items-start gap-4">
                   <img src="/lovable-uploads/07c83184-a071-4cb7-9aaf-f5b0f4c98041.png" alt="Utilisateur" className="w-12 h-12 rounded-full object-cover" />

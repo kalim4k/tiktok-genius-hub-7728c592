@@ -60,7 +60,7 @@ const CTA = () => {
                 </div>)}
             </div>
 
-            {/* New download and purchase buttons */}
+            {/* Download and purchase buttons */}
             <div className="flex flex-col items-center gap-8">
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white group text-lg px-6 py-6 shadow-lg hover:shadow-xl transition-all duration-300 shadow-purple-600/30 rounded-xl" onClick={handlePurchase}>
@@ -73,11 +73,11 @@ const CTA = () => {
               <div>
                 <p className="text-gray-300 mb-4">Ou téléchargez l'application gratuitement</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button variant="outline" size="lg" className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl">
+                  <Button variant="outline" size="lg" className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl" onClick={handlePurchase}>
                     <Apple className="h-5 w-5 mr-2" />
                     <span>Télécharger pour iOS</span>
                   </Button>
-                  <Button variant="outline" size="lg" className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl">
+                  <Button variant="outline" size="lg" className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl" onClick={handlePurchase}>
                     <Smartphone className="h-5 w-5 mr-2" />
                     <span>Télécharger pour Android</span>
                   </Button>
