@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, TrendingUp, Video, DollarSign } from "lucide-react";
@@ -26,7 +25,6 @@ const Hero = () => {
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
       <div className="absolute inset-0 hero-gradient -z-10"></div>
       
-      {/* Floating elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl animate-pulse-soft"></div>
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }}></div>
       
@@ -102,18 +100,49 @@ const Hero = () => {
             <div className="relative mx-auto max-w-lg lg:max-w-full transition-all duration-200">
               <div className="glow-effect rounded-2xl">
                 <div className="dark-glass-card overflow-hidden rounded-xl p-1">
-                  <div className="relative rounded-xl overflow-hidden">
-                    <img
-                      src="/lovable-uploads/606f9f0f-4c2c-4ee3-a568-e9b276469ff9.png"
-                      alt="TikViral Dashboard"
-                      className="w-full h-auto"
-                    />
+                  <div className="relative rounded-xl overflow-hidden bg-[#121212]">
+                    <div className="relative p-4">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500"></div>
+                        <div className="flex-1">
+                          <h3 className="text-white font-bold text-xl">@creator</h3>
+                          <p className="text-gray-400">Creator Name</p>
+                        </div>
+                        <button className="bg-pink-500 text-white px-6 py-2 rounded-full text-sm font-semibold">
+                          Suivre
+                        </button>
+                      </div>
+                      
+                      <div className="flex justify-between mb-6">
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-white">2.4M</p>
+                          <p className="text-gray-400 text-sm">Abonnés</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-white">12.8M</p>
+                          <p className="text-gray-400 text-sm">J'aime</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-white">428</p>
+                          <p className="text-gray-400 text-sm">Vidéos</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-1">
+                        {[...Array(6)].map((_, i) => (
+                          <div key={i} className="aspect-[9/16] bg-gradient-to-br from-purple-900/40 to-blue-900/40 rounded-md overflow-hidden">
+                            <div className="p-2 absolute bottom-0 left-0 right-0 bg-black/30 text-white text-xs">
+                              <p>2.1M vues</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                     <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-blue-400/10 mix-blend-overlay"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Decorative elements */}
               <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-purple-600 to-pink-400 rounded-full opacity-40 blur-2xl"></div>
               <div className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full opacity-30 blur-2xl"></div>
             </div>
@@ -121,7 +150,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Creator stats floating card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
