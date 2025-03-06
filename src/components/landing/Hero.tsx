@@ -1,6 +1,7 @@
+
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, TrendingUp, Video, DollarSign, ChartBar, BarChart3, TrendingDown, Apple, Android, CreditCard } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp, Video, DollarSign, ChartBar, BarChart3, TrendingDown, Apple, Smartphone, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -77,7 +78,7 @@ const Hero = () => {
                   <span>iOS</span>
                 </Button>
                 <Button variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
-                  <Android className="h-5 w-5 mr-2" />
+                  <Smartphone className="h-5 w-5 mr-2" />
                   <span>Android</span>
                 </Button>
               </div>

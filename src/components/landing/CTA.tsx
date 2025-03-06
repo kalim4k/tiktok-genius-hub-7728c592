@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Zap, Download, Apple, Android, CreditCard, AlertTriangle } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Download, Apple, Smartphone, CreditCard, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -78,7 +78,7 @@ const CTA = () => {
                     <span>Télécharger pour iOS</span>
                   </Button>
                   <Button variant="outline" size="lg" className="border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-6 py-5 rounded-xl">
-                    <Android className="h-5 w-5 mr-2" />
+                    <Smartphone className="h-5 w-5 mr-2" />
                     <span>Télécharger pour Android</span>
                   </Button>
                 </div>
