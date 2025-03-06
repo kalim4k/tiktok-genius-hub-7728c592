@@ -10,19 +10,11 @@ const genAI = new GoogleGenerativeAI("AIzaSyDvW1Ts20gJ0juw7uPBCLvKYrOhoo2j1UQ");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const fallbackUsernames = [
-  // Prénoms diversifiés de différentes origines
   "Aicha", "Mouna", "Kodjo", "Mamadou", "Mouhamed", "Moussa", 
   "Malik", "Fatou", "Bouba", "Fatima", "Ibrahim", "Mariam",
   "Aminata", "Seydou", "Ousmane", "Kadiatou", "Aboubacar", "Rokia",
   "Adama", "Oumou", "Souleymane", "Aïssatou", "Djibril", "Hawa",
-  "Amadou", "Fanta", "Bakary", "Bintou", "Ibrahima", "Fatoumata",
-  // Ajout de prénoms d'autres origines
-  "Emma", "Liam", "Olivia", "Noah", "Ava", "Isabella", 
-  "Sophia", "Mia", "Charlotte", "Amelia", "Harper", "Evelyn",
-  "Lucas", "Mason", "Logan", "Ethan", "Aiden", "James",
-  "Maria", "Sofia", "Valentina", "Valeria", "Camila", "Luciana",
-  "Chen", "Wei", "Jing", "Ming", "Lin", "Fang", "Mei", "Ling",
-  "Raj", "Arjun", "Amir", "Rajan", "Priya", "Neha", "Divya", "Ananya"
+  "Amadou", "Fanta", "Bakary", "Bintou", "Ibrahima", "Fatoumata"
 ];
 
 const fallbackMessages = [
@@ -51,7 +43,7 @@ interface Message {
 }
 
 const LiveChat = () => {
-  const MAX_MESSAGES = 4;
+  const MAX_MESSAGES = 6;
   const [messages, setMessages] = useState<Message[]>([]);
   const [newUsername, setNewUsername] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -64,7 +56,7 @@ const LiveChat = () => {
     try {
       setIsGenerating(true);
       const prompt = `
-        Génère un message unique qu'un utilisateur pourrait poster dans un chat en direct à propos d'une application qui aide les créateurs de contenu à réussir sur TikTok.
+        Génère un message unique qu'un utilisateur africain pourrait poster dans un chat en direct à propos d'une application qui aide les créateurs de contenu à réussir sur TikTok.
         Le message doit:
         1. Être en français
         2. Être très positif sur l'une des fonctionnalités suivantes (choisis-en une aléatoirement):
@@ -78,12 +70,12 @@ const LiveChat = () => {
            - Support client réactif
            - Idées de contenu viral
            - Statistiques et analyses
-        3. Inclure des expressions courantes ou de l'argot des réseaux sociaux si possible
+        3. Inclure des expressions ou argot africain si possible
         4. NE PAS mentionner de montants d'argent spécifiques
         5. Inclure 1-2 émojis appropriés
         6. Ne pas dépasser 100 caractères
         7. Être différent des messages précédents
-        8. Aussi génère un prénom de n'importe quelle origine (différent de: ${messages.slice(-5).map(m => m.username).join(", ")})
+        8. Aussi génère un prénom africain de l'Afrique de l'Ouest (différent de: ${fallbackUsernames.slice(0, 10).join(", ")})
         
         Format ta réponse exactement comme ceci sans mots ou explications supplémentaires:
         NOM: [prénom uniquement]
@@ -112,21 +104,8 @@ const LiveChat = () => {
     } catch (error) {
       console.error("Error generating message with Gemini:", error);
       
-      // Sélectionner un nom différent des 5 derniers noms utilisés
-      let randomUsername;
-      const recentUsernames = messages.slice(-5).map(m => m.username);
-      
-      do {
-        randomUsername = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
-      } while (recentUsernames.includes(randomUsername));
-      
-      // Sélectionner un message différent des 5 derniers messages
-      let randomMessage;
-      const recentMessages = messages.slice(-5).map(m => m.message);
-      
-      do {
-        randomMessage = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
-      } while (recentMessages.includes(randomMessage));
+      const randomUsername = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
+      const randomMessage = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
       
       addMessage({
         id: Date.now(),
@@ -137,7 +116,7 @@ const LiveChat = () => {
     } finally {
       setIsGenerating(false);
     }
-  }, [messages]);
+  }, []);
 
   const addMessage = useCallback((newMsg: Message) => {
     setMessages(prevMessages => {
@@ -189,7 +168,7 @@ const LiveChat = () => {
     const usedUsernames = new Set<string>();
     const usedMessages = new Set<string>();
     
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) {
       let username, message;
       
       do {
@@ -214,7 +193,7 @@ const LiveChat = () => {
     generateGeminiMessage();
     
     const scheduleNextGeneration = () => {
-      const randomInterval = 10000 + Math.floor(Math.random() * 10000);
+      const randomInterval = 7000 + Math.floor(Math.random() * 8000);
       generationIntervalRef.current = window.setTimeout(() => {
         generateGeminiMessage();
         scheduleNextGeneration();
@@ -276,7 +255,7 @@ const LiveChat = () => {
                 </div>
               </div>
               
-              <div className="flex-1 overflow-hidden pr-2 chat-container py-2">
+              <div className="flex-1 overflow-hidden pr-2 chat-container">
                 <AnimatePresence initial={false} mode="popLayout">
                   {messages.map((msg, index) => (
                     <motion.div
@@ -288,7 +267,7 @@ const LiveChat = () => {
                         duration: 0.5,
                         ease: "easeOut"
                       }}
-                      className={`message-item py-3 mb-3 ${msg.isUser ? 'pl-2 border-l-2 border-cyan-500/50 bg-cyan-900/20' : 'bg-purple-900/10'} rounded-lg px-3`}
+                      className={`message-item py-2 ${msg.isUser ? 'pl-2 border-l-2 border-cyan-500/50' : ''}`}
                     >
                       <div className="flex items-start">
                         <span className={`font-bold mr-2 ${getUsernameColor(msg.username, !!msg.isUser)}`}>
