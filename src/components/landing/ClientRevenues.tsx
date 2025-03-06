@@ -26,7 +26,7 @@ const revenueImages = [
 const ClientRevenues = () => {
   const autoplayPlugin = React.useRef(
     Autoplay({
-      delay: 3000,
+      delay: 5000, // Increased from 3000ms to 5000ms for slower transitions
       stopOnInteraction: false,
       stopOnMouseEnter: true,
     })
@@ -54,17 +54,19 @@ const ClientRevenues = () => {
           opts={{
             align: "start",
             loop: true,
+            dragFree: true, // Allows for momentum scrolling
+            speed: 15, // Slower animation speed (default is 10)
           }}
           plugins={[autoplayPlugin.current]}
           className="w-full"
         >
-          <CarouselContent>
+          <CarouselContent className="transition-all duration-1000 ease-in-out">
             {revenueImages.map((image, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 pl-6">
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.8, delay: index * 0.15 }} // Slower animation
                   className="relative group"
                 >
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition duration-1000"></div>
@@ -74,7 +76,7 @@ const ClientRevenues = () => {
                       alt={`Revenue Screenshot ${index + 1}`}
                       className="rounded-lg w-full h-64 object-cover border border-white/10"
                     />
-                    <div className="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
                 </motion.div>
               </CarouselItem>
