@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,18 @@ const genAI = new GoogleGenerativeAI("AIzaSyDvW1Ts20gJ0juw7uPBCLvKYrOhoo2j1UQ");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const fallbackUsernames = [
+  // African names
   "Aicha", "Mouna", "Kodjo", "Mamadou", "Mouhamed", "Moussa", 
   "Malik", "Fatou", "Bouba", "Fatima", "Ibrahim", "Mariam",
-  "Aminata", "Seydou", "Ousmane", "Kadiatou", "Aboubacar", "Rokia",
-  "Adama", "Oumou", "Souleymane", "Aïssatou", "Djibril", "Hawa",
-  "Amadou", "Fanta", "Bakary", "Bintou", "Ibrahima", "Fatoumata"
+  // Western names
+  "Emma", "Liam", "Olivia", "Noah", "Charlotte", "James",
+  "Sophia", "Lucas", "Mia", "Benjamin", "Amelia", "Ethan",
+  // Asian names
+  "Wei", "Keiko", "Jin", "Mei", "Hiroshi", "Seo-Yun",
+  "Arjun", "Priya", "Liu", "Yuna", "Chen", "Raj",
+  // Hispanic names
+  "Sofia", "Miguel", "Isabella", "Alejandro", "Valentina", "Diego",
+  "Camila", "Mateo", "Gabriela", "Santiago", "Luna", "Carlos"
 ];
 
 const fallbackMessages = [
@@ -32,7 +40,12 @@ const fallbackMessages = [
   "Le programme de monétisation n'a plus de secret pour moi maintenant",
   "Les bonus exclusifs sont vraiment utiles 🎁",
   "L'outil de recherche de tendances est incroyable",
-  "Merci pour les idées de contenu quand je suis en panne d'inspiration"
+  "Merci pour les idées de contenu quand je suis en panne d'inspiration",
+  "L'analyse des hashtags a boosté ma visibilité ✨",
+  "Grâce à l'app j'ai enfin compris le bon timing pour poster",
+  "Les filtres exclusifs font vraiment la différence 👏",
+  "Mes vidéos sont beaucoup plus pro depuis que j'utilise l'app",
+  "J'ai reçu ma première offre de partenariat hier!"
 ];
 
 interface Message {
@@ -51,12 +64,14 @@ const LiveChat = () => {
   const { toast } = useToast();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const generationIntervalRef = useRef<number | null>(null);
+  const usedUsernames = useRef<Set<string>>(new Set());
+  const usedMessages = useRef<Set<string>>(new Set());
 
   const generateGeminiMessage = useCallback(async () => {
     try {
       setIsGenerating(true);
       const prompt = `
-        Génère un message unique qu'un utilisateur africain pourrait poster dans un chat en direct à propos d'une application qui aide les créateurs de contenu à réussir sur TikTok.
+        Génère un message unique qu'un utilisateur pourrait poster dans un chat en direct à propos d'une application qui aide les créateurs de contenu à réussir sur TikTok.
         Le message doit:
         1. Être en français
         2. Être très positif sur l'une des fonctionnalités suivantes (choisis-en une aléatoirement):
@@ -70,12 +85,12 @@ const LiveChat = () => {
            - Support client réactif
            - Idées de contenu viral
            - Statistiques et analyses
-        3. Inclure des expressions ou argot africain si possible
+        3. Inclure des expressions familières si appropriées
         4. NE PAS mentionner de montants d'argent spécifiques
         5. Inclure 1-2 émojis appropriés
         6. Ne pas dépasser 100 caractères
         7. Être différent des messages précédents
-        8. Aussi génère un prénom africain de l'Afrique de l'Ouest (différent de: ${fallbackUsernames.slice(0, 10).join(", ")})
+        8. Génère aussi un prénom (pas de nom de famille) d'origine quelconque (occidentale, asiatique, africaine, hispanique, etc.)
         
         Format ta réponse exactement comme ceci sans mots ou explications supplémentaires:
         NOM: [prénom uniquement]
@@ -92,6 +107,14 @@ const LiveChat = () => {
         const username = nameMatch[1].trim();
         const message = messageMatch[1].trim();
         
+        // Check if this username or message has been used already
+        if (usedUsernames.current.has(username) || usedMessages.current.has(message)) {
+          throw new Error("Duplicate username or message generated");
+        }
+        
+        usedUsernames.current.add(username);
+        usedMessages.current.add(message);
+        
         addMessage({
           id: Date.now(),
           username,
@@ -104,8 +127,38 @@ const LiveChat = () => {
     } catch (error) {
       console.error("Error generating message with Gemini:", error);
       
-      const randomUsername = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
-      const randomMessage = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+      // Find unused username and message from fallbacks
+      let randomUsername, randomMessage;
+      let attempts = 0;
+      const maxAttempts = 20;
+      
+      // Try to find unused username
+      do {
+        randomUsername = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
+        attempts++;
+      } while (usedUsernames.current.has(randomUsername) && attempts < maxAttempts);
+      
+      // Reset attempts counter
+      attempts = 0;
+      
+      // Try to find unused message
+      do {
+        randomMessage = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+        attempts++;
+      } while (usedMessages.current.has(randomMessage) && attempts < maxAttempts);
+      
+      // If we've exhausted our options, just use the first fallbacks
+      if (attempts >= maxAttempts) {
+        // Reset the used sets if we're cycling through all options
+        if (usedUsernames.current.size >= fallbackUsernames.length * 0.8 || 
+            usedMessages.current.size >= fallbackMessages.length * 0.8) {
+          usedUsernames.current.clear();
+          usedMessages.current.clear();
+        }
+      }
+      
+      usedUsernames.current.add(randomUsername);
+      usedMessages.current.add(randomMessage);
       
       addMessage({
         id: Date.now(),
@@ -165,21 +218,22 @@ const LiveChat = () => {
 
   useEffect(() => {
     const initialMsgs: Message[] = [];
-    const usedUsernames = new Set<string>();
-    const usedMessages = new Set<string>();
     
+    // Generate 4 initial messages with unique usernames and messages
     for (let i = 0; i < 4; i++) {
       let username, message;
       
+      // Find unused username
       do {
         username = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
-      } while (usedUsernames.has(username));
-      usedUsernames.add(username);
+      } while (usedUsernames.current.has(username));
+      usedUsernames.current.add(username);
       
+      // Find unused message
       do {
         message = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
-      } while (usedMessages.has(message));
-      usedMessages.add(message);
+      } while (usedMessages.current.has(message));
+      usedMessages.current.add(message);
       
       initialMsgs.push({
         id: Date.now() - i * 1000,
@@ -193,7 +247,8 @@ const LiveChat = () => {
     generateGeminiMessage();
     
     const scheduleNextGeneration = () => {
-      const randomInterval = 7000 + Math.floor(Math.random() * 8000);
+      // Increased interval to 10-20 seconds for more natural chat flow
+      const randomInterval = 10000 + Math.floor(Math.random() * 10000);
       generationIntervalRef.current = window.setTimeout(() => {
         generateGeminiMessage();
         scheduleNextGeneration();
