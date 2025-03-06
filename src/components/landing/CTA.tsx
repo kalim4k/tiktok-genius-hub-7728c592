@@ -1,19 +1,10 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const keyBenefits = [
-  "Créez du contenu viral facilement",
-  "Augmentez vos vues et votre engagement",
-  "Monétisez efficacement votre compte",
-  "Recevez des bonus exclusifs",
-];
-
+const keyBenefits = ["Créez du contenu viral facilement", "Augmentez vos vues et votre engagement", "Monétisez efficacement votre compte", "Recevez des bonus exclusifs"];
 const CTA = () => {
-  return (
-    <section className="section-padding relative overflow-hidden">
+  return <section className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent"></div>
       
       {/* Decorative elements */}
@@ -21,13 +12,17 @@ const CTA = () => {
       <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl"></div>
       
       <div className="container-wide relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="gradient-border p-10 md:p-16 max-w-4xl mx-auto"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="gradient-border p-10 md:p-16 max-w-4xl mx-auto">
           <div className="relative z-10 text-center">
             <div className="flex justify-center mb-6">
               <div className="w-16 h-16 bg-purple-600 flex items-center justify-center rounded-2xl shadow-[0_0_30px_rgba(162,89,255,0.7)]">
@@ -44,21 +39,13 @@ const CTA = () => {
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mb-10">
-              {keyBenefits.map((benefit, index) => (
-                <div 
-                  key={index}
-                  className="flex items-center backdrop-blur-sm bg-white/5 border border-white/10 rounded-full px-4 py-2"
-                >
+              {keyBenefits.map((benefit, index) => <div key={index} className="flex items-center backdrop-blur-sm bg-white/5 border border-white/10 rounded-full px-4 py-2">
                   <CheckCircle className="h-5 w-5 mr-2 text-green-400" />
                   <span className="text-sm font-medium text-gray-200">{benefit}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
             
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white group text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300 shadow-purple-600/30 rounded-xl"
-            >
+            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white group text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300 shadow-purple-600/30 rounded-xl">
               <span className="mr-2">Commencer maintenant</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -70,43 +57,8 @@ const CTA = () => {
         </motion.div>
         
         {/* Success metrics */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="dark-glass-card p-6 rounded-xl text-center"
-          >
-            <h3 className="text-4xl font-bold text-white mb-2">10K+</h3>
-            <p className="text-gray-400">Créateurs satisfaits</p>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="dark-glass-card p-6 rounded-xl text-center"
-          >
-            <h3 className="text-4xl font-bold text-white mb-2">3M+</h3>
-            <p className="text-gray-400">Vues générées</p>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="dark-glass-card p-6 rounded-xl text-center"
-          >
-            <h3 className="text-4xl font-bold text-white mb-2">300%</h3>
-            <p className="text-gray-400">Augmentation d'engagement</p>
-          </motion.div>
-        </div>
+        
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CTA;
