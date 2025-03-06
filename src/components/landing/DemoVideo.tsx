@@ -22,11 +22,12 @@ const DemoVideo = ({ src, title, description, className }: DemoVideoProps) => {
         <div className="dark-glass-card overflow-hidden rounded-xl p-1">
           <div className="relative rounded-xl overflow-hidden">
             <video 
-              className="w-full rounded-xl" 
+              className="w-full h-auto rounded-xl" 
               autoPlay 
               loop 
               muted 
               playsInline
+              style={{ maxHeight: '240px' }}
             >
               <source src={src} type="video/mp4" />
               Votre navigateur ne supporte pas la lecture de vidéos.
@@ -40,9 +41,9 @@ const DemoVideo = ({ src, title, description, className }: DemoVideoProps) => {
       <div className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full opacity-30 blur-2xl"></div>
       
       {(title || description) && (
-        <div className="mt-6 text-center">
-          {title && <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>}
-          {description && <p className="text-gray-400">{description}</p>}
+        <div className="mt-4 text-center">
+          {title && <h3 className="text-base md:text-xl font-semibold text-white mb-1 md:mb-2">{title}</h3>}
+          {description && <p className="text-xs md:text-sm text-gray-400">{description}</p>}
         </div>
       )}
     </motion.div>

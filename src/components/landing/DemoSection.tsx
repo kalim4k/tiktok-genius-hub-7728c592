@@ -21,26 +21,30 @@ const DemoSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:grid-cols-2 lg:gap-16">
           <DemoVideo
             src="https://orawin.fun/wp-content/uploads/2025/03/video_2025-03-06_09-47-59.mp4"
             title="Analyse des Tendances"
             description="Découvrez les contenus viraux et les tendances du moment"
+            className="max-w-full"
           />
           <DemoVideo
             src="https://orawin.fun/wp-content/uploads/2025/03/video_2025-03-06_09-48-29.mp4"
             title="Suivi des Revenus"
             description="Visualisez et analysez vos revenus en temps réel"
+            className="max-w-full"
           />
           <DemoVideo
             src="https://orawin.fun/wp-content/uploads/2025/03/video_2025-03-06_09-48-33.mp4"
             title="Analyse de Compte"
             description="Obtenez des insights détaillés sur la performance de votre compte"
+            className="max-w-full"
           />
           <DemoVideo
             src="https://orawin.fun/wp-content/uploads/2025/03/video_2025-03-06_09-48-35.mp4"
             title="Connexion TikTok"
             description="Intégration simple et sécurisée de votre compte TikTok"
+            className="max-w-full"
           />
         </div>
       </div>
