@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Navbar from '@/components/landing/Navbar';
 import Hero from '@/components/landing/Hero';
@@ -10,6 +11,7 @@ import CTA from '@/components/landing/CTA';
 import Footer from '@/components/landing/Footer';
 import DemoSection from '@/components/landing/DemoSection';
 import ClientRevenues from '@/components/landing/ClientRevenues';
+import LiveChat from '@/components/landing/LiveChat';
 import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
@@ -41,6 +43,7 @@ const Index = () => {
         <Testimonials />
         <Pricing />
         <FAQ />
+        <LiveChat />
         <CTA />
       </main>
       <Footer />

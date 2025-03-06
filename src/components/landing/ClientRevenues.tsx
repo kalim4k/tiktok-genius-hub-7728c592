@@ -55,7 +55,6 @@ const ClientRevenues = () => {
             align: "start",
             loop: true,
             dragFree: true, // Allows for momentum scrolling
-            speed: 15, // Slower animation speed (default is 10)
           }}
           plugins={[autoplayPlugin.current]}
           className="w-full"
