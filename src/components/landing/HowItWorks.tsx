@@ -53,23 +53,8 @@ const HowItWorks = () => {
         </div>
 
         <div className="relative">
-          {/* Connection line for desktop */}
-          <motion.div 
-            initial={{ height: 0, opacity: 0 }}
-            whileInView={{ height: "100%", opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-            className="absolute top-0 bottom-0 left-1/2 w-1 bg-gradient-to-b from-amber-500 via-blue-500 to-purple-500 transform -translate-x-1/2 hidden md:block"
-          ></motion.div>
-          
-          {/* Connection line for mobile */}
-          <motion.div 
-            initial={{ height: 0, opacity: 0 }}
-            whileInView={{ height: "100%", opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-            className="absolute top-0 bottom-0 left-8 w-1 bg-gradient-to-b from-amber-500 via-blue-500 to-purple-500 md:hidden"
-          ></motion.div>
+          {/* Connection line */}
+          <div className="absolute top-0 bottom-0 left-1/2 w-1 bg-gradient-to-b from-amber-500 via-blue-500 to-purple-500 transform -translate-x-1/2 hidden md:block"></div>
           
           <div className="space-y-16 relative">
             {steps.map((step, index) => (
@@ -81,32 +66,16 @@ const HowItWorks = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`flex flex-col md:flex-row items-center gap-8 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
               >
-                <div className={`flex-1 text-center md:text-${index % 2 !== 0 ? 'right' : 'left'} pl-16 md:pl-0`}>
+                <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
                   <p className="text-gray-600">{step.description}</p>
                 </div>
 
                 <div className="relative">
-                  <motion.div 
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                    className={`w-16 h-16 rounded-full ${step.color} text-white flex items-center justify-center z-10 relative`}
-                  >
+                  <div className={`w-16 h-16 rounded-full ${step.color} text-white flex items-center justify-center z-10 relative`}>
                     <step.icon size={24} />
-                  </motion.div>
-                  <motion.div 
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    whileInView={{ scale: 1.25, opacity: 0.2 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                    className={`absolute inset-0 ${step.color} rounded-full`}
-                  ></motion.div>
+                  </div>
+                  <div className={`absolute inset-0 ${step.color} opacity-20 rounded-full scale-125 animate-pulse`} style={{ animationDuration: '3s' }}></div>
                 </div>
 
                 <div className="flex-1 text-center md:text-right">
