@@ -1,68 +1,68 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Users, Heart, TrendingUp } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Sophie Martin",
-    handle: "@sophielifestyle",
-    followers: "307K followers",
-    age: "22 ans",
-    testimonial: "Je n'avais jamais eu de stratégie qui fonctionnait constamment... jusqu'à ce que j'utilise TikViral.",
-    highlightedText: "jusqu'à ce que j'utilise TikViral.",
-    avatar: "https://randomuser.me/api/portraits/women/32.jpg",
-    verified: true,
-  },
-  {
-    name: "Marc Dubois",
-    handle: "@marcocomedy",
-    followers: "250K+ followers",
-    age: "26 ans",
-    testimonial: "Après avoir rejoint, j'ai eu 5 vidéos dépassant le million de vues... grâce à l'analyse et aux conseils de TikViral.",
-    highlightedText: "grâce à l'analyse et aux conseils de TikViral.",
-    avatar: "https://randomuser.me/api/portraits/men/54.jpg",
-    verified: true,
-  },
-  {
-    name: "Aminata Diallo",
-    handle: "@aminatafashion",
-    followers: "136K followers",
-    age: "19 ans",
-    testimonial: "Nous avons réussi à faire passer mon TikTok de 0... à plus de 136K followers et atteindre plus de 1M+ de vues en 30 jours!",
-    highlightedText: "1M+ de vues en 30 jours!",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    verified: false,
-  },
-  {
-    name: "Thomas Leroy",
-    handle: "@thomascreator",
-    followers: "670K abonnés",
+    name: "Khaby Lame",
+    handle: "@khaby.lame",
+    followers: "161.7M followers",
     age: "24 ans",
-    testimonial: "Juste quelques semaines après l'inscription, j'ai LITTÉRALEMENT explosé les vues... Je suis en bonne voie pour atteindre mon meilleur mois!",
-    highlightedText: "j'ai LITTÉRALEMENT explosé les vues...",
-    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+    testimonial: "J'ai commencé par poster des vidéos simples pendant le confinement... avec TikViral j'ai pu comprendre les tendances et optimiser mon contenu pour atteindre encore plus de personnes.",
+    highlightedText: "avec TikViral j'ai pu comprendre les tendances",
+    avatar: "/creators/khaby-lame.jpg",
     verified: true,
   },
   {
-    name: "Julie Moreau",
-    handle: "@juliemoment",
-    followers: "150K abonnés",
+    name: "Mya Le Bras",
+    handle: "@myaspinktoes",
+    followers: "1.2M followers",
     age: "21 ans",
-    testimonial: "La toute première vidéo que j'ai postée a obtenu 483K vues! Tout ça grâce aux conseils de contenu de TikViral.",
-    highlightedText: "483K vues!",
-    avatar: "https://randomuser.me/api/portraits/women/67.jpg",
+    testimonial: "J'ai gagné plus de 800 000 abonnés en seulement 3 mois après avoir suivi les stratégies recommandées par TikViral. Leur analyse des tendances a changé ma vie!",
+    highlightedText: "800 000 abonnés en seulement 3 mois",
+    avatar: "/creators/mya-le-bras.jpg",
     verified: true,
   },
   {
-    name: "Karim Benhaddou",
-    handle: "@karimcooks",
-    followers: "129K followers",
-    age: "28 ans",
-    testimonial: "J'ai quitté mon emploi parce que je gagnais tellement d'argent... Apprenez tout ce que TikViral enseigne!",
-    highlightedText: "je gagnais tellement d'argent...",
-    avatar: "https://randomuser.me/api/portraits/men/36.jpg",
-    verified: false,
+    name: "Nathalie Koah",
+    handle: "@nathaliekoah2",
+    followers: "672K followers",
+    age: "34 ans",
+    testimonial: "En tant qu'entrepreneure camerounaise, TikViral m'a aidée à comprendre comment monétiser mon audience et créer un revenu stable à partir de TikTok. C'est incroyable!",
+    highlightedText: "comprendre comment monétiser mon audience",
+    avatar: "/creators/nathalie-koah.jpg",
+    verified: true,
+  },
+  {
+    name: "Ayze",
+    handle: "@ayzeee",
+    followers: "3.9M followers",
+    age: "19 ans",
+    testimonial: "J'étais bloqué à 100K followers depuis des mois. Après avoir appliqué les conseils de TikViral, j'ai explosé à presque 4 millions en moins d'un an!",
+    highlightedText: "j'ai explosé à presque 4 millions en moins d'un an!",
+    avatar: "/creators/ayze.jpg",
+    verified: true,
+  },
+  {
+    name: "Esther Kamatari",
+    handle: "@princesseburundi",
+    followers: "419K followers",
+    age: "26 ans",
+    testimonial: "Venant du Burundi, je ne savais pas comment percer sur TikTok. TikViral m'a donné des stratégies adaptées au marché africain qui ont fonctionné immédiatement.",
+    highlightedText: "des stratégies adaptées au marché africain",
+    avatar: "/creators/esther-kamatari.jpg",
+    verified: true,
+  },
+  {
+    name: "Abdou Rozik",
+    handle: "@abdu_rozik",
+    followers: "8.6M followers",
+    age: "20 ans",
+    testimonial: "Avant TikViral, mes vidéos avaient peu de vues. Maintenant, j'ai plusieurs vidéos avec plus de 10 millions de vues et je peux vivre de ma passion!",
+    highlightedText: "plusieurs vidéos avec plus de 10 millions de vues",
+    avatar: "/creators/abdou-rozik.jpg",
+    verified: true,
   },
 ];
 
@@ -101,7 +101,15 @@ const TestimonialCard = ({ testimonial }) => {
               </span>
             )}
           </div>
-          <p className="text-xs text-gray-400">{followers} • {age}</p>
+          <div className="flex items-center text-xs text-gray-400">
+            <span className="mr-2">{handle}</span>
+            <div className="flex items-center">
+              <Users size={10} className="mr-1" />
+              <span>{followers}</span>
+            </div>
+            <span className="mx-1">•</span>
+            <span>{age}</span>
+          </div>
         </div>
       </div>
       
@@ -111,6 +119,17 @@ const TestimonialCard = ({ testimonial }) => {
           <span className="font-bold text-white">{highlightedText}</span>
           {parts[1] || ""}
         </p>
+      </div>
+      
+      <div className="flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-gray-800/50">
+        <div className="flex items-center">
+          <Heart size={12} className="mr-1 text-pink-500" />
+          <span>14.3K</span>
+        </div>
+        <div className="flex items-center">
+          <TrendingUp size={12} className="mr-1 text-green-500" />
+          <span>+27% growth rate</span>
+        </div>
       </div>
     </motion.div>
   );
@@ -132,12 +151,12 @@ const Testimonials = () => {
             Témoignages
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white neon-glow">
-            Des Résultats Qui Durent<span className="text-pink-500">.</span>
+            Créateurs TikTok à succès<span className="text-pink-500">.</span>
           </h2>
           <p className="text-gray-300 text-lg">
-            Succès de nos utilisateurs — découvrez comment ils transforment leurs efforts en réussite, 
+            Découvrez comment des créateurs de contenu réels ont transformé leur présence sur TikTok grâce à nos stratégies
             <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 py-1 rounded ml-2 inline-block">
-              vous le pouvez aussi!
+              résultats vérifiés
             </span>
           </p>
         </div>
