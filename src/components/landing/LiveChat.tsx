@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, MessagesSquare } from "lucide-react";
+import { Send, MessagesSquare, ChevronDown } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -61,11 +61,36 @@ const LiveChat = () => {
   const [newUsername, setNewUsername] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const { toast } = useToast();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const generationIntervalRef = useRef<number | null>(null);
   const usedUsernames = useRef<Set<string>>(new Set());
   const usedMessages = useRef<Set<string>>(new Set());
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  // Check if user is at bottom of chat container
+  const isUserAtBottom = useCallback(() => {
+    if (!chatContainerRef.current) return true;
+    
+    const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
+    // Consider "at bottom" if within 50px of the bottom
+    return scrollHeight - scrollTop - clientHeight <= 50;
+  }, []);
+
+  // Handle scroll events to determine auto-scroll behavior
+  const handleScroll = useCallback(() => {
+    if (!chatContainerRef.current) return;
+    
+    const atBottom = isUserAtBottom();
+    setShouldAutoScroll(atBottom);
+    setShowScrollButton(!atBottom);
+  }, [isUserAtBottom]);
 
   const generateGeminiMessage = useCallback(async () => {
     try {
@@ -208,6 +233,7 @@ const LiveChat = () => {
     
     addMessage(userMsg);
     setNewMessage("");
+    setShouldAutoScroll(true); // Auto-scroll when user sends a message
     
     toast({
       title: "Message envoyé",
@@ -216,6 +242,7 @@ const LiveChat = () => {
     });
   };
 
+  // Initialize chat with messages
   useEffect(() => {
     const initialMsgs: Message[] = [];
     
@@ -244,6 +271,12 @@ const LiveChat = () => {
     }
     setMessages(initialMsgs);
 
+    // Set initial auto-scroll and add scroll listener
+    setTimeout(() => {
+      scrollToBottom();
+      chatContainerRef.current?.addEventListener('scroll', handleScroll);
+    }, 100);
+
     generateGeminiMessage();
     
     const scheduleNextGeneration = () => {
@@ -261,12 +294,16 @@ const LiveChat = () => {
       if (generationIntervalRef.current) {
         clearTimeout(generationIntervalRef.current);
       }
+      chatContainerRef.current?.removeEventListener('scroll', handleScroll);
     };
-  }, [generateGeminiMessage]);
+  }, [generateGeminiMessage, handleScroll, scrollToBottom]);
 
+  // Control auto-scrolling based on user's scroll position
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (shouldAutoScroll) {
+      scrollToBottom();
+    }
+  }, [messages, shouldAutoScroll, scrollToBottom]);
 
   const getUsernameColor = (username: string, isUser: boolean = false) => {
     if (isUser) return "text-cyan-400";
@@ -310,9 +347,12 @@ const LiveChat = () => {
                 </div>
               </div>
               
-              <div className="flex-1 overflow-hidden pr-2 chat-container">
+              <div 
+                ref={chatContainerRef} 
+                className="flex-1 overflow-y-auto pr-2 chat-container custom-scrollbar"
+              >
                 <AnimatePresence initial={false} mode="popLayout">
-                  {messages.map((msg, index) => (
+                  {messages.map((msg) => (
                     <motion.div
                       key={msg.id}
                       initial={{ opacity: 0, y: 40 }}
@@ -335,6 +375,20 @@ const LiveChat = () => {
                 </AnimatePresence>
                 <div ref={messagesEndRef} />
               </div>
+              
+              {showScrollButton && (
+                <Button
+                  onClick={() => {
+                    setShouldAutoScroll(true);
+                    scrollToBottom();
+                  }}
+                  className="absolute bottom-2 right-2 p-2 rounded-full bg-purple-600 hover:bg-purple-700 transition-all shadow-lg z-10"
+                  size="sm"
+                  variant="default"
+                >
+                  <ChevronDown className="h-5 w-5" />
+                </Button>
+              )}
             </div>
           </div>
 
