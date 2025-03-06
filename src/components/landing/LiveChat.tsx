@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,19 @@ const genAI = new GoogleGenerativeAI("AIzaSyDvW1Ts20gJ0juw7uPBCLvKYrOhoo2j1UQ");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const fallbackUsernames = [
+  // Prénoms diversifiés de différentes origines
   "Aicha", "Mouna", "Kodjo", "Mamadou", "Mouhamed", "Moussa", 
   "Malik", "Fatou", "Bouba", "Fatima", "Ibrahim", "Mariam",
   "Aminata", "Seydou", "Ousmane", "Kadiatou", "Aboubacar", "Rokia",
   "Adama", "Oumou", "Souleymane", "Aïssatou", "Djibril", "Hawa",
-  "Amadou", "Fanta", "Bakary", "Bintou", "Ibrahima", "Fatoumata"
+  "Amadou", "Fanta", "Bakary", "Bintou", "Ibrahima", "Fatoumata",
+  // Ajout de prénoms d'autres origines
+  "Emma", "Liam", "Olivia", "Noah", "Ava", "Isabella", 
+  "Sophia", "Mia", "Charlotte", "Amelia", "Harper", "Evelyn",
+  "Lucas", "Mason", "Logan", "Ethan", "Aiden", "James",
+  "Maria", "Sofia", "Valentina", "Valeria", "Camila", "Luciana",
+  "Chen", "Wei", "Jing", "Ming", "Lin", "Fang", "Mei", "Ling",
+  "Raj", "Arjun", "Amir", "Rajan", "Priya", "Neha", "Divya", "Ananya"
 ];
 
 const fallbackMessages = [
@@ -56,7 +65,7 @@ const LiveChat = () => {
     try {
       setIsGenerating(true);
       const prompt = `
-        Génère un message unique qu'un utilisateur africain pourrait poster dans un chat en direct à propos d'une application qui aide les créateurs de contenu à réussir sur TikTok.
+        Génère un message unique qu'un utilisateur pourrait poster dans un chat en direct à propos d'une application qui aide les créateurs de contenu à réussir sur TikTok.
         Le message doit:
         1. Être en français
         2. Être très positif sur l'une des fonctionnalités suivantes (choisis-en une aléatoirement):
@@ -70,12 +79,12 @@ const LiveChat = () => {
            - Support client réactif
            - Idées de contenu viral
            - Statistiques et analyses
-        3. Inclure des expressions ou argot africain si possible
+        3. Inclure des expressions courantes ou de l'argot des réseaux sociaux si possible
         4. NE PAS mentionner de montants d'argent spécifiques
         5. Inclure 1-2 émojis appropriés
         6. Ne pas dépasser 100 caractères
         7. Être différent des messages précédents
-        8. Aussi génère un prénom africain de l'Afrique de l'Ouest (différent de: ${fallbackUsernames.slice(0, 10).join(", ")})
+        8. Aussi génère un prénom de n'importe quelle origine (différent de: ${messages.slice(-5).map(m => m.username).join(", ")})
         
         Format ta réponse exactement comme ceci sans mots ou explications supplémentaires:
         NOM: [prénom uniquement]
@@ -104,8 +113,21 @@ const LiveChat = () => {
     } catch (error) {
       console.error("Error generating message with Gemini:", error);
       
-      const randomUsername = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
-      const randomMessage = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+      // Sélectionner un nom différent des 5 derniers noms utilisés
+      let randomUsername;
+      const recentUsernames = messages.slice(-5).map(m => m.username);
+      
+      do {
+        randomUsername = fallbackUsernames[Math.floor(Math.random() * fallbackUsernames.length)];
+      } while (recentUsernames.includes(randomUsername));
+      
+      // Sélectionner un message différent des 5 derniers messages
+      let randomMessage;
+      const recentMessages = messages.slice(-5).map(m => m.message);
+      
+      do {
+        randomMessage = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+      } while (recentMessages.includes(randomMessage));
       
       addMessage({
         id: Date.now(),
@@ -116,7 +138,7 @@ const LiveChat = () => {
     } finally {
       setIsGenerating(false);
     }
-  }, []);
+  }, [messages]);
 
   const addMessage = useCallback((newMsg: Message) => {
     setMessages(prevMessages => {
@@ -349,3 +371,4 @@ const LiveChat = () => {
 };
 
 export default LiveChat;
+
