@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -52,7 +51,7 @@ interface Message {
 }
 
 const LiveChat = () => {
-  const MAX_MESSAGES = 6;
+  const MAX_MESSAGES = 4;
   const [messages, setMessages] = useState<Message[]>([]);
   const [newUsername, setNewUsername] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -190,7 +189,7 @@ const LiveChat = () => {
     const usedUsernames = new Set<string>();
     const usedMessages = new Set<string>();
     
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 2; i++) {
       let username, message;
       
       do {
@@ -215,7 +214,7 @@ const LiveChat = () => {
     generateGeminiMessage();
     
     const scheduleNextGeneration = () => {
-      const randomInterval = 7000 + Math.floor(Math.random() * 8000);
+      const randomInterval = 10000 + Math.floor(Math.random() * 10000);
       generationIntervalRef.current = window.setTimeout(() => {
         generateGeminiMessage();
         scheduleNextGeneration();
@@ -277,7 +276,7 @@ const LiveChat = () => {
                 </div>
               </div>
               
-              <div className="flex-1 overflow-hidden pr-2 chat-container">
+              <div className="flex-1 overflow-hidden pr-2 chat-container py-2">
                 <AnimatePresence initial={false} mode="popLayout">
                   {messages.map((msg, index) => (
                     <motion.div
@@ -289,7 +288,7 @@ const LiveChat = () => {
                         duration: 0.5,
                         ease: "easeOut"
                       }}
-                      className={`message-item py-2 ${msg.isUser ? 'pl-2 border-l-2 border-cyan-500/50' : ''}`}
+                      className={`message-item py-3 mb-3 ${msg.isUser ? 'pl-2 border-l-2 border-cyan-500/50 bg-cyan-900/20' : 'bg-purple-900/10'} rounded-lg px-3`}
                     >
                       <div className="flex items-start">
                         <span className={`font-bold mr-2 ${getUsernameColor(msg.username, !!msg.isUser)}`}>
@@ -371,4 +370,3 @@ const LiveChat = () => {
 };
 
 export default LiveChat;
-
