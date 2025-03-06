@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '@/components/landing/Navbar';
 import Hero from '@/components/landing/Hero';
@@ -10,6 +9,7 @@ import FAQ from '@/components/landing/FAQ';
 import CTA from '@/components/landing/CTA';
 import Footer from '@/components/landing/Footer';
 import DemoSection from '@/components/landing/DemoSection';
+import ClientRevenues from '@/components/landing/ClientRevenues';
 import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
@@ -36,6 +36,7 @@ const Index = () => {
         <Hero />
         <Features />
         <DemoSection />
+        <ClientRevenues />
         <HowItWorks />
         <Testimonials />
         <Pricing />
