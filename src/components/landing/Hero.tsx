@@ -1,11 +1,12 @@
-
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, TrendingUp, Video, DollarSign, ChartBar, BarChart3, TrendingDown } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp, Video, DollarSign, ChartBar, BarChart3, TrendingDown, Apple, Android, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const Hero = () => {
   const videoRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -21,6 +22,15 @@ const Hero = () => {
     document.addEventListener("mousemove", handleMouseMove);
     return () => document.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  const handlePurchase = () => {
+    toast({
+      title: "Licence non disponible",
+      description: "Désolé, les licences et l'application ne sont pas disponibles dans votre pays pour le moment.",
+      variant: "destructive",
+      duration: 5000,
+    });
+  };
 
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
@@ -55,13 +65,22 @@ const Hero = () => {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold px-8 py-6 rounded-xl group shadow-[0_0_20px_rgba(162,89,255,0.5)]">
-                Commencer maintenant
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button onClick={handlePurchase} className="bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold px-8 py-6 rounded-xl group shadow-[0_0_20px_rgba(162,89,255,0.5)]">
+                <CreditCard className="mr-2 h-5 w-5" />
+                <span>Acheter une licence</span>
+                <span className="text-sm ml-2 bg-white/20 px-2 py-0.5 rounded">9,99€/mois</span>
               </Button>
-              <Button variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-8 py-6 rounded-xl">
-                Découvrir les fonctionnalités
-              </Button>
+              
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
+                  <Apple className="h-5 w-5 mr-2" />
+                  <span>iOS</span>
+                </Button>
+                <Button variant="outline" className="text-lg font-semibold border-purple-500/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 px-4 py-6 rounded-xl">
+                  <Android className="h-5 w-5 mr-2" />
+                  <span>Android</span>
+                </Button>
+              </div>
             </motion.div>
             
             <motion.div
