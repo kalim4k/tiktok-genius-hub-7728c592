@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -61,8 +60,8 @@ const LiveChat = () => {
   const [newUsername, setNewUsername] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
-  const [showScrollButton, setShowScrollButton] = useState(false);
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(false); // Désactivé par défaut
+  const [showScrollButton, setShowScrollButton] = useState(true); // Toujours montrer le bouton
   const { toast } = useToast();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -70,13 +69,16 @@ const LiveChat = () => {
   const usedUsernames = useRef<Set<string>>(new Set());
   const usedMessages = useRef<Set<string>>(new Set());
 
+  // Fonction de scroll manuelle uniquement - ne sera appelée que par le bouton
   const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, []);
 
   // Check if user is at bottom of chat container
   const isUserAtBottom = useCallback(() => {
-    if (!chatContainerRef.current) return true;
+    if (!chatContainerRef.current) return false;
     
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
     // Consider "at bottom" if within 50px of the bottom
@@ -88,7 +90,7 @@ const LiveChat = () => {
     if (!chatContainerRef.current) return;
     
     const atBottom = isUserAtBottom();
-    setShouldAutoScroll(atBottom);
+    // N'active jamais l'auto-scroll, juste gère l'affichage du bouton
     setShowScrollButton(!atBottom);
   }, [isUserAtBottom]);
 
@@ -233,7 +235,7 @@ const LiveChat = () => {
     
     addMessage(userMsg);
     setNewMessage("");
-    setShouldAutoScroll(true); // Auto-scroll when user sends a message
+    // Ne pas activer l'auto-scroll ici
     
     toast({
       title: "Message envoyé",
@@ -271,11 +273,8 @@ const LiveChat = () => {
     }
     setMessages(initialMsgs);
 
-    // Set initial auto-scroll and add scroll listener
-    setTimeout(() => {
-      scrollToBottom();
-      chatContainerRef.current?.addEventListener('scroll', handleScroll);
-    }, 100);
+    // Initialisation sans scroll auto, juste ajout du listener de scroll
+    chatContainerRef.current?.addEventListener('scroll', handleScroll);
 
     generateGeminiMessage();
     
@@ -296,14 +295,9 @@ const LiveChat = () => {
       }
       chatContainerRef.current?.removeEventListener('scroll', handleScroll);
     };
-  }, [generateGeminiMessage, handleScroll, scrollToBottom]);
+  }, [generateGeminiMessage, handleScroll]);
 
-  // Control auto-scrolling based on user's scroll position
-  useEffect(() => {
-    if (shouldAutoScroll) {
-      scrollToBottom();
-    }
-  }, [messages, shouldAutoScroll, scrollToBottom]);
+  // Suppression du useEffect qui gérait l'auto-scroll sur les nouveaux messages
 
   const getUsernameColor = (username: string, isUser: boolean = false) => {
     if (isUser) return "text-cyan-400";
@@ -376,12 +370,10 @@ const LiveChat = () => {
                 <div ref={messagesEndRef} />
               </div>
               
+              {/* Bouton toujours visible quand pas au bas du chat */}
               {showScrollButton && (
                 <Button
-                  onClick={() => {
-                    setShouldAutoScroll(true);
-                    scrollToBottom();
-                  }}
+                  onClick={scrollToBottom}
                   className="absolute bottom-2 right-2 p-2 rounded-full bg-purple-600 hover:bg-purple-700 transition-all shadow-lg z-10"
                   size="sm"
                   variant="default"
