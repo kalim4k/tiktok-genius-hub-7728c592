@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, TrendingUp, Video, DollarSign, ChartBar, BarChart3, TrendingDown, Apple, Smartphone, CreditCard } from "lucide-react";
@@ -215,7 +214,7 @@ const Hero = () => {
               </div>
               
               <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-purple-600 to-pink-400 rounded-full opacity-40 blur-2xl"></div>
-              <div className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full opacity-30 blur-2xl"></div>
+              <div className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full opacity-30 blur-2xl hidden md:block"></div>
             </div>
           </motion.div>
         </div>
