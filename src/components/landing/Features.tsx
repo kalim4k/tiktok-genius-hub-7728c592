@@ -116,7 +116,7 @@ const Features = () => {
   };
 
   return (
-    <section id="features" className="section-padding relative overflow-hidden">
+    <section id="features" className="section-padding relative overflow-hidden hidden md:block">
       <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
       <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-purple-900/20 to-transparent"></div>
       

@@ -122,7 +122,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="lg:col-span-6 floating"
+            className="lg:col-span-6 floating hidden md:block"
             ref={videoRef}
           >
             <div className="relative mx-auto max-w-lg lg:max-w-full transition-all duration-200">
