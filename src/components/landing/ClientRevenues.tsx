@@ -5,7 +5,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { motion } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
 
 const revenueImages = [
@@ -26,7 +25,7 @@ const revenueImages = [
 const ClientRevenues = () => {
   const autoplayPlugin = React.useRef(
     Autoplay({
-      delay: 5000, // Increased from 3000ms to 5000ms for slower transitions
+      delay: 8000, // Increased delay for better performance
       stopOnInteraction: false,
       stopOnMouseEnter: true,
     })
@@ -42,7 +41,7 @@ const ClientRevenues = () => {
           <span className="inline-block px-3 py-1 text-xs font-semibold text-purple-200 bg-purple-900/50 rounded-full border border-purple-700/50 mb-4">
             Revenus Clients
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white neon-glow">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
             Résultats Prouvés<span className="text-pink-500">.</span>
           </h2>
           <p className="text-gray-300 text-lg">
@@ -54,30 +53,21 @@ const ClientRevenues = () => {
           opts={{
             align: "start",
             loop: true,
-            dragFree: true, // Allows for momentum scrolling
+            dragFree: true,
           }}
           plugins={[autoplayPlugin.current]}
           className="w-full"
         >
-          <CarouselContent className="transition-all duration-1000 ease-in-out">
+          <CarouselContent>
             {revenueImages.map((image, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 pl-6">
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.15 }} // Slower animation
-                  className="relative group"
-                >
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition duration-1000"></div>
-                  <div className="relative">
-                    <img
-                      src={image}
-                      alt={`Revenue Screenshot ${index + 1}`}
-                      className="rounded-lg w-full h-64 object-cover border border-white/10"
-                    />
-                    <div className="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </div>
-                </motion.div>
+                <div className="relative group">
+                  <img
+                    src={image}
+                    alt={`Revenue Screenshot ${index + 1}`}
+                    className="rounded-lg w-full h-64 object-cover border border-white/10"
+                  />
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>
