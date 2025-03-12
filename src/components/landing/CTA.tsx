@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Zap, Download, Apple, Smartphone, CreditCard, AlertTriangle } from "lucide-react";
@@ -11,12 +10,7 @@ const CTA = () => {
   const { toast } = useToast();
 
   const handlePurchase = () => {
-    toast({
-      title: "Licence non disponible",
-      description: "Désolé, les licences et l'application ne sont pas disponibles dans votre pays pour le moment.",
-      variant: "destructive",
-      duration: 5000,
-    });
+    window.location.href = "https://tikvirale.netlify.app/auth";
   };
 
   const downloadAndroid = () => {
@@ -24,7 +18,7 @@ const CTA = () => {
   };
 
   const downloadIOS = () => {
-    window.open("https://orawin.fun/TikViral.aab", "_blank");
+    window.location.href = "https://tikvirale.netlify.app/auth";
   };
 
   return <section className="section-padding relative overflow-hidden">

@@ -25,12 +25,7 @@ const Pricing = () => {
   const { toast } = useToast();
   
   const handlePurchase = () => {
-    toast({
-      title: "Licence non disponible",
-      description: "Désolé, les licences et l'application ne sont pas disponibles dans votre pays pour le moment.",
-      variant: "destructive",
-      duration: 5000
-    });
+    window.location.href = "https://tikvirale.netlify.app/auth";
   };
   
   return <section id="pricing" className="section-padding relative overflow-hidden">

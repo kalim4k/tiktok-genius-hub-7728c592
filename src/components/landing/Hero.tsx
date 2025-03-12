@@ -24,12 +24,7 @@ const Hero = () => {
   }, []);
 
   const handlePurchase = () => {
-    toast({
-      title: "Licence non disponible",
-      description: "Désolé, les licences et l'application ne sont pas disponibles dans votre pays pour le moment.",
-      variant: "destructive",
-      duration: 5000,
-    });
+    window.location.href = "https://tikvirale.netlify.app/auth";
   };
 
   const downloadAndroid = () => {
@@ -37,7 +32,7 @@ const Hero = () => {
   };
 
   const downloadIOS = () => {
-    window.open("https://orawin.fun/TikViral.aab", "_blank");
+    window.location.href = "https://tikvirale.netlify.app/auth";
   };
 
   return (
