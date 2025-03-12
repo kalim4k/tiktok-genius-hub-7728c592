@@ -4,14 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const {
     toast
   } = useToast();
-  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -23,7 +21,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -39,11 +36,9 @@ const Navbar = () => {
       }, 100);
     }
   };
-  
   const handlePurchase = () => {
     window.location.href = "https://tikvirale.netlify.app/auth";
   };
-  
   return <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-black/40 backdrop-blur-md shadow-md py-3 border-b border-white/10" : "bg-transparent py-5"}`}>
       <div className="container-wide flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
@@ -71,9 +66,7 @@ const Navbar = () => {
 
         {/* CTA Button */}
         <div className="hidden md:block">
-          <Button onClick={handlePurchase} className="bg-gradient-to-r from-purple-600 to-blue-500 hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] text-white transition-all">
-            Obtenir TikViral
-          </Button>
+          <Button onClick={handlePurchase} className="bg-gradient-to-r from-purple-600 to-blue-500 hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] text-white transition-all">Se connecter à TikViral</Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -116,5 +109,4 @@ const Navbar = () => {
       </AnimatePresence>
     </header>;
 };
-
 export default Navbar;
